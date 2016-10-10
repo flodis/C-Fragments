@@ -30,15 +30,15 @@ class IENumDemo
     private float GetaNum()
     {
         //Advance to next item
-        if (!costable.MoveNext())
+        if (!cosenum.MoveNext())
         {
             //End of list - reset and advance to first
-            costable.Reset();
-            costable.MoveNext();
+            cosenum.Reset();
+            cosenum.MoveNext();
         }
 
         //Return Enum current value
-        return costable.Current;
+        return cosenum.Current;
     
     
     }
