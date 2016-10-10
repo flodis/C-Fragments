@@ -10,11 +10,6 @@ using System.Drawing.Drawing2D;
 
 namespace GraphicsSandbox
 {
-
-    /// <summary>
-    /// No beauty - just som code here and there to get the basic idea how to apply a matrix
-    /// to transform your graphics. Rotate, Translate etc
-    /// </summary>
     public partial class Form1 : Form
     {
 
@@ -38,11 +33,12 @@ namespace GraphicsSandbox
                 true);
 
 
-
+            //Configure timer
             tmr.Interval = 5;
             tmr.Tick += new EventHandler(tmr_Tick);
             tmr.Enabled = true;
 
+            //Init a graphics path and a cosinus table values for matrix rotation
             using (Font largeFont = new Font(Font.FontFamily, Font.Size * 12, FontStyle.Bold, GraphicsUnit.Pixel))
             {
 
@@ -56,15 +52,16 @@ namespace GraphicsSandbox
 
                 center = new Point((int)(ptText.X + sz.Width / 2), (int)(ptText.Y + sz.Height / 2));
 
+                //Make an enumerator ready to deliver cos values
                 costable = (new List<double>() { 
                     0, 10, 20, 30, 40, 50, 60, 70, 80, 90,  
                 }).Select(v => (float)Math.Cos(v * Math.PI / 180)).ToList().GetEnumerator();
 
-
+                //Sample - How to make an inline lambda function
                 string temp = new Func<string>(() => "test")();
 
 
-
+                //Another version of costable
                 costable = new Func<List<float>>(() =>
                 {
                     List<float> nn = new List<float>();
@@ -84,7 +81,7 @@ namespace GraphicsSandbox
 
 
         /// <summary>
-        /// What is this
+        /// Typical way to prevent flickering in Winform applications
         /// </summary>
         protected override CreateParams CreateParams
         {
@@ -96,18 +93,19 @@ namespace GraphicsSandbox
             }
         }
 
+        //Timer event
         void tmr_Tick(object sender, EventArgs e)
         {
+            //Make label redraw
             label1.Invalidate();
         }
 
 
         private void label1_Paint(object sender, PaintEventArgs e)
         {
-            // Call the OnPaint method of the base class.
-            //base.OnPaint(e);
-            // Call methods of the System.Drawing.Graphics object.
 
+            //A bit silly access to an IEnumarable as it picks a new rotation
+            //angle on each paint
             if (!costable.MoveNext())
             {
                 costable.Reset();
@@ -118,11 +116,20 @@ namespace GraphicsSandbox
             {
 
                 var T = new Matrix();
+                //Focus the matrix operations to center
                 T.Translate(center.X, center.Y);
+
+                //Do whatever needed arround the center
                 //T.Rotate(1);
                 T.Scale(costable.Current, 1f, MatrixOrder.Prepend);
+
+                //Translate back to use matrix
                 T.Translate(-center.X, -center.Y);
+
+                //Apply transform
                 e.Graphics.Transform = T;
+
+                //Draw
                 e.Graphics.DrawPath(pen, gp);
 
             }
