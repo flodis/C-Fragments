@@ -10,6 +10,9 @@ using System.Drawing.Drawing2D;
 
 namespace GraphicsSandbox
 {
+    /// <summary>
+    /// A form class used in the demo application
+    /// </summary>
     public partial class Form1 : Form
     {
 
