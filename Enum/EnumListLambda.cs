@@ -36,7 +36,7 @@ class IENumDemo
         }
 
         //Return Enum current value
-        yield return costable.Current;
+        return costable.Current;
     
     
     }
