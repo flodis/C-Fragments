@@ -8,12 +8,12 @@ class IENumDemo
     /// Create a cosinus table enumerator with 0..360 deg values
     /// </summary>
     private IEnumerable<float> cosdata = new Func<IEnumerable<float>>(() =>
-            {
-                for (int v = 0; v < 360; v++)
-                {
-                    yield return (float)Math.Cos(v * Math.PI / 180);
-                }
-            }
+    {
+        for (int v = 0; v < 360; v++)
+        {
+            yield return (float)Math.Cos(v * Math.PI / 180);
+        }
+    }
         )();
 
     /// <summary>
@@ -39,8 +39,8 @@ class IENumDemo
 
         //Return Enum current value
         return cosenum.Current;
-    
-    
+
+
     }
 
 
@@ -53,7 +53,8 @@ class IENumDemo
     private IEnumerable<float> GetaList()
     {
         for (int v = 0; v < 360; v++)
-        {
+      
+            //Yield value and execution to calling routine
             yield return (float)Math.Cos(v * Math.PI / 180);
         }
 
